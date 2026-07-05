@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
+=======
+    "test": "echo \"Error: no test specified\" && exit 1"
+>>>>>>> a192bbef9ce096252edc989e8fd42cc41385457d
   },
   "keywords": [],
   "author": "",
@@ -15,6 +19,10 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+<<<<<<< HEAD
     "mongoose": "^9.7.3"
+=======
+    "mongoose": "^9.5.0"
+>>>>>>> a192bbef9ce096252edc989e8fd42cc41385457d
   }
 }

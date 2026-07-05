@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -30,3 +31,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });
+=======
+
+>>>>>>> a192bbef9ce096252edc989e8fd42cc41385457d
