@@ -20,6 +20,11 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'Welcome to the LexLanka API!' });
 });
 
+
+// Import Routes
+const clientRoutes = require('./routes/clientRoutes');
+app.use('/api/clients', clientRoutes);
+
 // Start the Server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
