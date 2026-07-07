@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ClientService } from '../../services/client.service';
 
 @Component({
@@ -12,12 +13,12 @@ import { ClientService } from '../../services/client.service';
 export class AddClientComponent {
   clientForm: FormGroup;
   isSubmitting = false;
-  successMessage: string | null = null;
   errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private router: Router
   ) {
     this.clientForm = this.fb.group({
       fullName: ['', Validators.required],
@@ -36,14 +37,12 @@ export class AddClientComponent {
     }
 
     this.isSubmitting = true;
-    this.successMessage = null;
     this.errorMessage = null;
 
     this.clientService.addClient(this.clientForm.value).subscribe({
-      next: (response) => {
-        this.successMessage = 'Client added successfully!';
-        this.isSubmitting = false;
-        this.clientForm.reset({ clientType: 'Individual' });
+      next: () => {
+        // Navigate back to the home page (client list)
+        this.router.navigate(['/']);
       },
       error: (err) => {
         console.error('Error adding client:', err);
@@ -53,3 +52,4 @@ export class AddClientComponent {
     });
   }
 }
+
