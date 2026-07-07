@@ -13,4 +13,8 @@ export class ClientService {
   getAllClients(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
   }
+
+  addClient(clientData: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, clientData);
+  }
 }
