@@ -23,4 +23,26 @@ router.get('/', async (req, res) => {
   }
 });
 
+// PUT route to add a new court date to a specific case
+router.put('/:id/add-date', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { dateType, scheduledDate, notes } = req.body;
+
+    const updatedCase = await Case.findByIdAndUpdate(
+      id,
+      { $push: { courtDates: { dateType, scheduledDate, notes } } },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedCase) {
+      return res.status(404).json({ message: 'Case not found' });
+    }
+
+    res.json(updatedCase);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 module.exports = router;

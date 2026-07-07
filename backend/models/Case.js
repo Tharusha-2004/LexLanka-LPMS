@@ -25,7 +25,21 @@ const caseSchema = new mongoose.Schema({
     type: String,
     enum: ['Active', 'Closed'],
     default: 'Active'
-  }
+  },
+  courtDates: [{
+    dateType: {
+      type: String,
+      enum: ['Calling Date', 'Trial', 'Judgment'],
+      required: true
+    },
+    scheduledDate: {
+      type: Date,
+      required: true
+    },
+    notes: {
+      type: String
+    }
+  }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('Case', caseSchema);
