@@ -13,10 +13,21 @@ router.post('/', async (req, res) => {
   }
 });
 
-// GET route to fetch all cases with clientId populated
+// GET route to fetch all cases with clientId populated with specific fields
 router.get('/', async (req, res) => {
   try {
-    const cases = await Case.find().populate('clientId');
+    const cases = await Case.find().populate('clientId', 'fullName nicNumber');
+    res.json(cases);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET route to fetch all cases belonging to a specific client
+router.get('/client/:clientId', async (req, res) => {
+  try {
+    const { clientId } = req.params;
+    const cases = await Case.find({ clientId }).populate('clientId', 'fullName nicNumber');
     res.json(cases);
   } catch (error) {
     res.status(500).json({ message: error.message });

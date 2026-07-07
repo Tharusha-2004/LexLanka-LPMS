@@ -11,19 +11,28 @@ const caseSchema = new mongoose.Schema({
     ref: 'Client',
     required: true
   },
+  opposingPartyName: {
+    type: String,
+    required: true
+  },
   caseCategory: {
     type: String,
-    enum: ['Civil', 'Criminal'],
+    enum: ['Civil', 'Criminal', 'Commercial', 'Fundamental Rights'],
     required: true
   },
   applicableLaw: {
     type: String,
-    enum: ['General Law', 'Kandyan Law', 'Muslim Law'],
+    enum: ['General Law', 'Kandyan Law', 'Muslim Law', 'Thesawalamai'],
+    default: 'General Law'
+  },
+  courtLevel: {
+    type: String,
+    enum: ['Primary Court', 'Magistrate Court', 'District Court', 'High Court', 'Court of Appeal', 'Supreme Court'],
     required: true
   },
   status: {
     type: String,
-    enum: ['Active', 'Closed'],
+    enum: ['Active', 'Awaiting Trial', 'Appealed', 'Closed'],
     default: 'Active'
   },
   courtDates: [{
