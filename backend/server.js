@@ -23,7 +23,9 @@ app.get('/api/test', (req, res) => {
 
 // Import Routes
 const clientRoutes = require('./routes/clientRoutes');
+const caseRoutes = require('./routes/caseRoutes');
 app.use('/api/clients', clientRoutes);
+app.use('/api/cases', caseRoutes);
 
 // Start the Server
 const PORT = process.env.PORT || 3000;
