@@ -4,5 +4,7 @@ import { AddClientComponent } from './components/add-client/add-client.component
 
 export const routes: Routes = [
   { path: '', component: ClientListComponent },
-  { path: 'add-client', component: AddClientComponent }
+  { path: 'clients', redirectTo: '', pathMatch: 'full' },
+  { path: 'add-client', component: AddClientComponent },
+  { path: '**', redirectTo: '' }
 ];
