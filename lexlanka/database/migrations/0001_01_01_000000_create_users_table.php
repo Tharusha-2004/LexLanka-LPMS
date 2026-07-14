@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('role', ['partner', 'associate', 'clerk']);
+            $table->string('branch')->nullable();
+            $table->decimal('flat_appearance_rate', 10, 2)->default(0);
+            $table->enum('status', ['active', 'suspended'])->default('active');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -42,8 +46,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('users');
     }
 };
