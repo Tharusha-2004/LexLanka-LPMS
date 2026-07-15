@@ -7,6 +7,7 @@ use App\Http\Controllers\CourtDateController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\LedgerEntryController;
 use App\Http\Controllers\LegalCaseController;
+use App\Http\Controllers\LegalDocumentController;
 use App\Models\Client;
 use App\Models\CourtDate;
 use App\Models\LegalCase;
@@ -65,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Cases — full resource
     Route::resource('cases', LegalCaseController::class);
+    Route::get('/cases/{id}/export-brief', [LegalDocumentController::class, 'exportCaseBrief'])->name('cases.export-brief');
 
     // Scheduling (CourtDates) — full resource at /scheduling
     Route::resource('scheduling', CourtDateController::class);
