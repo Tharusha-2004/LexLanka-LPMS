@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\BillingController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CourtDateController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\LedgerEntryController;
+use App\Http\Controllers\LegalCaseController;
 use App\Models\Client;
 use App\Models\CourtDate;
 use App\Models\LegalCase;
@@ -58,11 +63,20 @@ Route::middleware(['auth'])->group(function () {
     // Clients — full resource
     Route::resource('clients', ClientController::class);
 
-    // ── Placeholder routes (replace with resource controllers later) ──
-    Route::get('/cases',      fn() => 'Cases — coming soon')->name('cases.index');
-    Route::get('/scheduling', fn() => 'Scheduling — coming soon')->name('scheduling.index');
-    Route::get('/documents',  fn() => 'Documents — coming soon')->name('documents.index');
-    Route::get('/billing',    fn() => 'Billing — coming soon')->name('billing.index');
+    // Cases — full resource
+    Route::resource('cases', LegalCaseController::class);
+
+    // Scheduling (CourtDates) — full resource at /scheduling
+    Route::resource('scheduling', CourtDateController::class);
+
+    // Documents — full resource
+    Route::resource('documents', DocumentController::class)->except(['edit', 'update']);
+
+    // Billing Dashboard
+    Route::get('/billing', [BillingController::class, 'index'])->name('billing.index');
+
+    // Ledger Entries
+    Route::resource('ledger-entries', LedgerEntryController::class)->only(['create', 'store']);
 
 });
 
