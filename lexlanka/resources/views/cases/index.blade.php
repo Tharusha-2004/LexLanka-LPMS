@@ -122,14 +122,24 @@
                             <td class="px-5 py-3.5 text-slate-400 text-xs hidden lg:table-cell">
                                 {{ $case->created_at->format('d M Y') }}
                             </td>
-                            <td class="px-5 py-3.5 text-right whitespace-nowrap">
+                            
+                            {{-- UPDATED ACTIONS COLUMN WITH PDF BUTTON --}}
+                            <td class="px-5 py-3.5 text-right whitespace-nowrap flex items-center justify-end">
                                 <a href="{{ route('cases.show', $case) }}"
                                    class="text-slate-400 hover:text-indigo-600 transition-colors mr-3 text-xs font-medium">
                                     View
                                 </a>
                                 <a href="{{ route('cases.edit', $case) }}"
-                                   class="text-slate-400 hover:text-indigo-600 transition-colors text-xs font-medium">
+                                   class="text-slate-400 hover:text-indigo-600 transition-colors mr-4 text-xs font-medium">
                                     Edit
+                                </a>
+                                
+                                <a href="{{ url('/cases/' . $case->id . '/export-brief') }}" 
+                                   class="inline-flex items-center px-2.5 py-1.5 bg-white border border-slate-300 rounded text-slate-700 hover:bg-slate-50 hover:text-indigo-600 transition-colors text-xs font-medium shadow-sm">
+                                    <svg class="w-3.5 h-3.5 mr-1.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                    </svg>
+                                    PDF
                                 </a>
                             </td>
                         </tr>

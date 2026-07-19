@@ -6,8 +6,10 @@ use App\Http\Requests\StoreLegalCaseRequest;
 use App\Models\Client;
 use App\Models\LegalCase;
 use App\Models\User;
+use App\Notifications\CaseStatusUpdated;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 
 class LegalCaseController extends Controller
@@ -128,10 +130,23 @@ class LegalCaseController extends Controller
 
     /**
      * Update the specified case in storage.
+     * Sends an email notification to the client when the status changes.
      */
     public function update(StoreLegalCaseRequest $request, LegalCase $case): RedirectResponse
     {
+        // Capture the original status BEFORE saving
+        $previousStatus = $case->status;
+
         $case->update($request->validated());
+
+        // Fire notification only if status changed AND client has an email
+        if ($case->status !== $previousStatus && $case->client?->email) {
+            // Reload relationships so the notification has fresh data
+            $case->load('client', 'assignedAttorney');
+
+            Notification::route('mail', $case->client->email)
+                        ->notify(new CaseStatusUpdated($case));
+        }
 
         return redirect()
             ->route('cases.show', $case)
