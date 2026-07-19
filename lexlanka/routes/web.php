@@ -18,9 +18,10 @@ use Illuminate\Support\Facades\Route;
 | Guest / Authentication Routes
 |--------------------------------------------------------------------------
 */
+// Public landing page — accessible to guests AND authenticated users
 Route::get('/', function () {
-    return redirect()->route('login');
-});
+    return view('welcome');
+})->name('home');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login',  [AuthController::class, 'showLoginForm'])->name('login');
